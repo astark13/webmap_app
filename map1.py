@@ -18,7 +18,10 @@ fg = folium.FeatureGroup(name="My Map") # creates a group of features(e.g. marke
 
 for lt, ln, el in zip(lat,lon,elev):
     fg.add_child(folium.CircleMarker(location=[lt,ln], radius=6, popup=str(el)+"m", 
-    fill_color=color_producer(el), color='grey', fill_opacity=0.7))  # adds a marker with a location, message/popup, and color
+    fill_color=color_producer(el), color='grey', fill_opacity=0.7))  # adds a point-layer containing markers with a location, message/popup, and color
+
+fg.add_child(folium.GeoJson(open("world.json",encoding = "utf-8-sig").read())) # adds a polygon-layer that shows borders(areas) between countries and contains data such as area, population, etc
+
 map.add_child(fg)
 
 map.save("Map1.html")
